@@ -60,7 +60,7 @@ typedef struct node
 	int num,c;
 	node *root=NULL,*temp;
 	root=create(root);
-	printf("\ntotal leaf node =");
+	printf("\ntotal non leaf node =");
 	printf("%d\t",leaf(root));
 	}
 	
