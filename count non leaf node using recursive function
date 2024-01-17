@@ -1,0 +1,68 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node
+{
+	int data;
+	struct node *left,*right;
+	}node;
+	node *create(node *root)
+	{
+	int i,n;
+	node *temp=root,*newnode,*parent;
+	printf("enter limit:");
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+	{
+	newnode=(node*)malloc(sizeof(node));
+	printf("enter value:");
+	scanf("%d",&newnode->data);
+	newnode->left=NULL;
+	newnode->right=NULL;
+	if(root==NULL)
+	{
+	root=newnode;
+	continue;
+	}
+	temp=root;
+	while(temp!=NULL)
+	{
+	parent=temp;
+	if(newnode->data<temp->data)
+	temp=temp->left;
+	else
+	temp=temp->right;
+	}
+	if(newnode->data<parent->data)
+	parent->left=newnode;
+	else
+	parent->right=newnode;
+	}
+	return root;
+	}
+	
+	node *leaf(node *root)
+	{
+	node *temp=root;
+	 static int c=0;
+	if(temp!=NULL)
+	{
+	if(temp->left!=NULL || temp->right!=NULL)
+	
+	c++;
+	leaf(temp->left);
+	leaf(temp->right);
+	}
+	return c;
+	} 
+	
+	int main()
+	{
+	int num,c;
+	node *root=NULL,*temp;
+	root=create(root);
+	printf("\ntotal leaf node =");
+	printf("%d\t",leaf(root));
+	}
+	
+	
+	
