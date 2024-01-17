@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node
+{
+	int data;
+	struct node *left,*right;
+	}node;
+	node *create(node *root)
+	{
+	int i,n;
+	node *temp=root,*newnode,*parent;
+	printf("enter limit:");
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+	{
+	newnode=(node*)malloc(sizeof(node));
+	printf("enter value:");
+	scanf("%d",&newnode->data);
+	newnode->left=NULL;
+	newnode->right=NULL;
+	if(root==NULL)
+	{
+	root=newnode;
+	continue;
+	}
+	temp=root;
+	while(temp!=NULL)
+	{
+	parent=temp;
+	if(newnode->data<temp->data)
+	temp=temp->left;
+	else
+	temp=temp->right;
+	}
+	if(newnode->data<parent->data)
+	parent->left=newnode;
+	else
+	parent->right=newnode;
+	}
+	return root;
+	}
+	
+	int min(node *root)
+	{
+	node *temp=root;
+	while(temp!=NULL && temp->left!=NULL)
+	temp=temp->left;
+	return temp->data;
+	
+	int main()
+	{
+	int num,c;
+	node *root=NULL,*temp;
+	root=create(root);
+	//min(root);
+	printf("\n min value %d",min(root));
+	}
+	
+	
+	
