@@ -46,7 +46,7 @@ typedef struct node
 	while(temp!=NULL && temp->left!=NULL)
 	temp=temp->left;
 	return temp->data;
-	
+	}
 	int main()
 	{
 	int num,c;
