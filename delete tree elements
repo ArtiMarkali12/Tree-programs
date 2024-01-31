@@ -1,0 +1,121 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node
+{
+	int data;
+	struct node *left,*right;
+	}node;
+	node *create(node *root)
+	{
+	int i,n;
+	node *temp,*parent,*newnode;
+	printf("enter limit:");
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+	{
+	printf("enter value:");
+	newnode=(node*)malloc(sizeof(node));
+	scanf("%d",&newnode->data);
+	newnode->left=NULL;
+	newnode->right=NULL;
+	if(root==NULL)
+	{
+	root=newnode;
+	continue;
+	}
+	temp=root;
+	while(temp!=NULL)
+	{
+	parent=temp;
+	if(newnode->data<temp->data)
+	temp=temp->left;
+	else
+	temp=temp->right;
+	}
+	if(newnode->data<parent->data)
+	parent->left=newnode;
+	else
+	parent->right=newnode;
+	}
+	return root;
+	}
+	void inorder(node *root)
+	{
+	node *temp=root;
+	if(temp!=NULL)
+	{
+	inorder(temp->left);
+	printf("%d\t",temp->data);
+	inorder(temp->right);
+	}
+}
+
+	void preorder(node *root)
+	{
+	node *temp=root;
+	if(temp!=NULL)
+	{
+	printf("%d\t",temp->data);
+	preorder(temp->left);
+	preorder(temp->right);
+	}
+}
+
+	void postorder(node *root)
+	{
+	node *temp=root;
+	if(temp!=NULL)
+	{
+	postorder(temp->left);
+	postorder(temp->right);
+	printf("%d\t",temp->data);
+	}
+}
+
+node *del(node *root,int num)
+	{
+	node *temp;
+	if(root==NULL)
+	return root;
+	if(num<root->data)
+	root->left=del(root->left,num);
+	else if(num>root->data)
+	root->right=del(root->right,num);
+	else if(num==root->data)
+	{
+	if(root->left==NULL)
+	{
+	temp=root->right;
+	free(root);
+	return temp;
+	}
+	temp=root->right;
+	while(temp &&temp->left!=NULL)
+	{
+	temp=temp->left;
+	}
+	root->data=temp->data;
+	root->right=del(root->right,temp->data);
+	}
+	return root;
+	}
+
+	
+	int main()
+	{
+	int num;
+	node *root=NULL,*newnode,*root1=NULL;
+	root=create(root);
+	printf("\n inorder display:");
+	inorder(root);
+	printf("\n preorder display:");
+	preorder(root);
+	printf("\n postorder display:");
+	postorder(root);
+	printf("\n \n");
+	printf("enter number to delete:");
+	scanf("%d",&num);
+	root=del(root,num);
+	inorder(root);
+	}
+	
